@@ -1,0 +1,52 @@
+{% extends "movie_app/base.html" %}
+{% block content %}
+<style>
+    .img-small {
+      max-width: 90%;
+    }
+</style>
+  <div class="wrapper">
+    <div class="container section single-movie">
+        <div class="row">
+            <div class="col-md-20">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <img src={{film.image}} alt="Hızlı ve &#214;fkeli 10"
+                             class="poster img-small">
+                    </div>
+                    <div class="col-sm-7">
+                        <h1 class="no-underline">{{film.title}}</h1>
+                        <p>
+                            <ul class="movie-info"> <li> Vizyon Tarihi:</i>{{film.vision_date}}</li> <li> Yönetmen:</i>{{film.director}} </li> </ul>
+                        </p>
+                        <a href="{{film.trailer}}" class="btn btn-primary btn-lg">Fragman</a>
+                        <button type="button" class="btn btn-secondary btn-lg">Yorum Yap</button>
+                        <p></p>
+                        <html>
+                            <head>
+                                <title></title>
+                            </head>
+                            <body>
+                            <p>{{film.summary}}</p> 
+                            </body>
+                            </html>
+                        <!--<div class="movie-detail-tag">
+                                <span class="title">Aksiyon</span>
+                                <span class="title">Macera</span>
+                                <span class="title">Su&#231;</span>
+                                <span class="title">3 Boyutlu </span>
+                                <span class="title">IMAX</span>
+                                <span class="title">Action</span>
+                                <span class="title">Mystery</span>
+                                <span class="title">Crime</span>
+                        </div>-->
+                        <select class="custom-select custom-select-lg mb-2" style="font-size: 20px; border:none; text-decoration: none;">
+                            <option selected>Sinema Seç</option>
+                            {% for sinem in sinemalar %}
+                              <option value=1>{{ sinem.title }}</option>
+                            {% endfor %}
+                        </select>                          
+                    </div>
+                </div>
+            </div>
+{% endblock %}
