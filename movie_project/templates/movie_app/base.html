@@ -31,15 +31,32 @@
             </ul>
           </li>
         </ul>
+      {% if show_welcome %}
+        <div class="d-flex justify-content-center">
+          <div class="container text-center">
+            <h1>Hoş Geldiniz, {{user.username}}</h1>
+            <p>Burada sinemalar hakkında bilgi alabilir ve filmler hakkında yorum yapabilirsiniz.</p>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+        <nav class="navbar bg-body-tertiary">
+          <form class="container-fluid justify-content-start" action="{% url 'user_logout' %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-outline-danger me-2" type="submit">Çıkış Yap</button>
+          </form>
+        </nav>
+      {% endif %}
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <nav class="navbar bg-body-tertiary">
-          <form class="container-fluid justify-content-start">
-            <button class="btn btn-outline-success me-2" type="button">Giriş Yap</button>
-            <button class="btn btn-sm btn-outline-secondary" type="button">Üye ol</button>
-          </form>
+        <form class="container-fluid justify-content-start">
+          <a class="btn btn-outline-success me-2" href="{% url 'user_login' %}">Giriş Yap</a>
+          <a class="btn btn-sm btn-outline-secondary" href="{% url 'user_register' %}">Üye ol</a>
+        </form>
         </nav>
       </div>
     </div>

@@ -17,7 +17,13 @@
                     <div class="col-sm-7">
                         <h1 class="no-underline">{{film.title}}</h1>
                         <p>
-                            <ul class="movie-info"> <li> Vizyon Tarihi:</i>{{film.vision_date}}</li> <li> Yönetmen:</i>{{film.director}} </li> </ul>
+                            <ul class="movie-info"> <li> Vizyon Tarihi:</i>{{film.vision_date}}</li> 
+                                <li> Yönetmen:</i>{{film.director}} </li> 
+                                <li> IMDB:</i>{{film.imdb_score}} </li> 
+                                {% for genre in genres %}
+                                <button type="button" class="btn btn-outline-secondary">{{genre.type}}</button>    
+                                {% endfor %}
+                            </ul>
                         </p>
                         <a href="{{film.trailer}}" class="btn btn-primary btn-lg">Fragman</a>
                         <button type="button" class="btn btn-secondary btn-lg">Yorum Yap</button>
@@ -40,13 +46,53 @@
                                 <span class="title">Mystery</span>
                                 <span class="title">Crime</span>
                         </div>-->
-                        <select class="custom-select custom-select-lg mb-2" style="font-size: 20px; border:none; text-decoration: none;">
-                            <option selected>Sinema Seç</option>
-                            {% for sinem in sinemalar %}
-                              <option value=1>{{ sinem.title }}</option>
-                            {% endfor %}
-                        </select>                          
                     </div>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Sinemalar</th>
+                          <th scope="col">Tarih</th>
+                          <th scope="col">Seanslar</th>
+                          <th scope="col">Seçenekler</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!--{% for sinema in film.sinemalar.all %}
+                        {% for salon in sinema.salonlar.all %}
+                        {% for seans in salon.seanslar.all %}
+                        {% if seans.tarih >= today or seans.saat >= current_time %}
+                          <tr>
+                              <td>{{sinema.title}}</td>
+                              <td>{{ seans.tarih|date:"d F Y" }}</td>
+                              <td>
+                                <a href="#" class="btn btn-primary">{{ seans.saat|time:"H:i" }}</a>
+                              </td>
+                          </tr>
+                          {% endif %}
+                          {% endfor %}
+                          {% endfor %}
+                          {% endfor %}-->
+                          {% for seans in seanslar %}
+                          {% if seans.tarih >= today or seans.saat >= current_time %}
+                              <tr>
+                                  <td>{{ seans.salon.sinema.title }}</td>
+                                  <td>{{ seans.tarih|date:"d F Y" }}</td>
+                                  <td>
+                                      <a href="{% url 'bilet_alma' %}" class="btn btn-primary">{{ seans.saat|time:"H:i" }}</a>
+                                  </td>
+                                  <td>
+                                  {% if seans.altyazi %}
+                                   TÜRKÇE ALTYAZI
+                                  {% endif %}
+                                  {% if seans.dublaj %}
+                                   TÜRKÇE DUBLAJ
+                                  {% endif %}
+                                   </td>
+                              </tr>
+                          {% endif %}
+                      {% endfor %}
+                      </tbody>
+                    </table>   
                 </div>
             </div>
 {% endblock %}
